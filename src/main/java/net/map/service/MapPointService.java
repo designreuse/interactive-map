@@ -18,4 +18,8 @@ public class MapPointService {
     public Iterable<MapPoint> list() {
         return mapPointRepository.findAll();
     }
+
+    public MapPoint getById(long id) {
+        return mapPointRepository.findOneById(id);
+    }
 }
