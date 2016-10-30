@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="layouts/main">
+<head>
+    <title>List Posts</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <h2>Map points</h2>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>View</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="point : ${points}">
+            <td th:text="${point.name}">title</td>
+            <td th:text="${point.description}">slug</td>
+            <td th:text="${point.category}">author</td>
+            <td><a href="#" th:href="@{/admin/post/} + ${point.id}">View</a></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a href="#">Add new point</a>
+    <br/><br/>
+
+    <p th:if="${points.size() == 0}">
+    <div class="alert alert-warning" role="alert">No Posts Found.</div>
+    </p>
+
+</div>
+
+</body>
+</html>
