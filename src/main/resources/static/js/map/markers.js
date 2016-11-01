@@ -13,12 +13,24 @@ L.layerJSON({
     propertyTitle: 'name',
     propertyLoc: ['lat','lng'],
     buildIcon: function(data, title) {
+        if(data.category=="POI"){
         return new L.Icon({
+
             iconUrl:'images/marker24.png',
             iconSize: new L.Point(29, 41),
             iconAnchor: new L.Point(18, 41),
             popupAnchor: new L.Point(0, -41)
         });
+        }
+        else{
+            return new L.Icon({
+
+                iconUrl:'css/images/layers.png',
+                iconSize: new L.Point(29, 41),
+                iconAnchor: new L.Point(18, 41),
+                popupAnchor: new L.Point(0, -41)
+            });
+        }
     },
     buildPopup: function(data, marker) {
         return '<h4>'+ data.name +'</h4><br/>Category:<b>'+ data.category +'</b><hr>Description:<br/>'+ data.description +''|| null;

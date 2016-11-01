@@ -18,10 +18,9 @@
     <!-- Leaflet library import-->
     <link rel="stylesheet" type="text/css" href="../css/leaflet.css" />
     <link rel="stylesheet" type="text/css" href="../css/leaflet-loader.css" />
-    <script type='text/javascript' src='../js/jquery.min.js'></script>
-    <script type='text/javascript' src='../js/leaflet.js'></script>
-    <script type='text/javascript' src='../js/leaflet-loader.js'></script>
-    <script type='text/javascript' src='../js/leaflet-layerjson.min.js'></script>
+    <link rel="stylesheet" type="text/css" href="../css/leaflet-panel-layers.min.css" />
+    <link rel="stylesheet" type="text/css" href="../css/icons.css" />
+
     <!-- -->
 
 </head>
@@ -73,9 +72,82 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" ></script>
+<script type='text/javascript' src='../js/jquery.min.js'></script>
+<script type='text/javascript' src='../js/leaflet.js'></script>
+<script type='text/javascript' src='../js/leaflet-loader.js'></script>
+<script type='text/javascript' src='../js/leaflet-layerjson.min.js'></script>
+<script type='text/javascript' src="../js/leaflet-panel-layers.min.js"></script>
+
 <!-- Our JS map script importing-->
-<script type='text/javascript' src='../js/map/map.js'></script>
-<script type='text/javascript' src='../js/map/markers.js'></script>
+<!--<script type='text/javascript' src='../js/map/map.js'></script>
+<script type='text/javascript' src='../js/map/markers.js'></script>-->
 <!-- -->
+
+<script type='text/javascript' src="../js/map/data/bar.js"></script>
+<script type='text/javascript' src="../js/map/data/fuel.js"></script>
+<script type='text/javascript' src="../js/map/data/parking.js"></script>
+<script type='text/javascript' src="../js/map/data/drinking_water.js"></script>
+<script>
+
+    var map = L.map('map', {
+                zoom: 11,
+                center: L.latLng([42.4918,12.4992]),
+                maxBounds: L.latLngBounds([[42.41281,12.28821],[42.5589,12.63805]]).pad(0.5),
+                attributionControl: false
+            }),
+            osmLayer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+
+    map.addLayer(osmLayer);
+
+    function iconByName(name) {
+        return '<i class="icon icon-'+name+'"></i>';
+    }
+
+
+    function featureToMarker(feature, latlng) {
+        return L.marker(latlng, {
+            icon: L.divIcon({
+                className: 'marker-'+feature.properties.amenity,
+                html: iconByName(feature.properties.amenity),
+                iconUrl: '../images/markers/'+feature.properties.amenity+'.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41]
+            })
+        });
+    }
+
+    var overLayers = [
+        {
+            name: "Bar",
+            icon: iconByName('bar'),
+            layer: L.geoJson(Bar, {pointToLayer: featureToMarker })
+        },
+        {
+            name: "Drinking Water",
+            icon: iconByName('drinking_water'),
+            layer: L.geoJson(Drinking_water, {pointToLayer: featureToMarker })
+        },
+        {
+            name: "Fuel",
+            icon: iconByName('fuel'),
+            layer: L.geoJson(Fuel, {pointToLayer: featureToMarker })
+        },
+        {
+            name: "Parking",
+            icon: iconByName('parking'),
+            layer: L.geoJson(Parking, {pointToLayer: featureToMarker })
+        }
+    ];
+
+    var panelLayers = new L.Control.PanelLayers(null, overLayers, {
+        collapsed: true
+    });
+
+    map.addControl(panelLayers);
+
+</script>
+
 </body>
 </html>

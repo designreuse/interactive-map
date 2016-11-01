@@ -14,6 +14,7 @@ L.layerJSON({
     propertyTitle: 'name',
     propertyLoc: ['lat','lng'],
     buildIcon: function(data, title) {
+
         return new L.Icon({
             iconUrl:'../images/marker24.png',
             iconSize: new L.Point(29, 41),
