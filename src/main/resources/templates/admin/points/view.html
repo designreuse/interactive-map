@@ -11,7 +11,7 @@
 
     <ol class="breadcrumb">
         <li><a href="/">Home</a></li>
-        <li><a href="/point/list">Posts</a></li>
+        <li><a href="/admin/list">Posts</a></li>
         <li class="active" th:text="${point.name}"></li>
     </ol>
 
@@ -19,19 +19,13 @@
         <header>
             <h2 th:text="${point.name}">title</h2>
         </header>
-            <section th:utext="${point.description}">
-            body
-        </section>
-        <footer>
-            <address>
-                Category:  <span th:text="${point.category}"> </span><br>
-                Position:<span th:text="${point.lat}"></span> x <span th:text="${point.lng}"> </span>  ${point.lat} x ${point.lng}
 
-            </address>
-        </footer>
+        <section th:utext="${point.description}">
+        </section>
+        Position: <span th:text="${point.lat}"></span> x <span th:text="${point.lng}"> </span>
+
         <hr/>
     </article>
-
 </div>
 
 </body>

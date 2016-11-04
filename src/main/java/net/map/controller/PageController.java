@@ -1,12 +1,14 @@
 package net.map.controller;
 
 import net.map.domain.MapPoint;
+import net.map.repository.MapPointRepository;
 import net.map.service.MapPointService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * Created by pingwin on 27.10.16.
@@ -14,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class PageController {
     private MapPointService mapPointService;
-
     @Autowired
     public PageController(MapPointService service){
         this.mapPointService = service;
     }
+
 
     @RequestMapping("/")
     public String homePage(){
@@ -42,6 +44,24 @@ public class PageController {
     public String view(@PathVariable(value="id") Long id, Model model){
         model.addAttribute("point", mapPointService.getById(id));
         return "admin/points/view";
+    }
+
+    @RequestMapping("admin/list/create")
+    public String create(Model model){
+        model.addAttribute("point", new MapPoint());
+        return "admin/points/pointForm";
+    }
+
+    @RequestMapping(value="admin/list/save", method= RequestMethod.POST)
+    public String save(MapPoint mapPoint){
+        mapPointService.save(mapPoint);
+        return "redirect:/admin/list/view/" + mapPoint.getId();
+    }
+
+
+    @RequestMapping("/testcluster")
+    public String testcluster(Model model) {
+        return "testcluster";
     }
 
 

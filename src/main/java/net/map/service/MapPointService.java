@@ -11,8 +11,8 @@ public class MapPointService {
     private MapPointRepository mapPointRepository;
 
     @Autowired
-    public MapPointService(MapPointRepository repo){
-        this.mapPointRepository = repo;
+    public MapPointService(MapPointRepository mapPointRepository){
+        this.mapPointRepository = mapPointRepository;
     }
 
     public Iterable<MapPoint> list() {
@@ -21,5 +21,10 @@ public class MapPointService {
 
     public MapPoint getById(long id) {
         return mapPointRepository.findOneById(id);
+    }
+
+    public MapPoint save(MapPoint point) {
+        return mapPointRepository.save(point);
+
     }
 }

@@ -25,12 +25,12 @@
             <td th:text="${point.name}">title</td>
             <td th:text="${point.description}">slug</td>
             <td th:text="${point.category}">author</td>
-            <td><a href="#" th:href="@{/admin/post/} + ${point.id}">View</a></td>
+            <td><a href="#" th:href="@{/admin/list/view/} + ${point.id}">View</a></td>
         </tr>
         </tbody>
     </table>
 
-    <a href="#">Add new point</a>
+    <a th:href="@{/admin/list/create}">Add new point</a>
     <br/><br/>
 
     <p th:if="${points.size() == 0}">
