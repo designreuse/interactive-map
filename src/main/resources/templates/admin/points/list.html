@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org"
       layout:decorator="layouts/main">
 <head>
-    <title>List Posts</title>
+    <title>List of points</title>
 </head>
 <body>
 
@@ -18,6 +18,8 @@
             <th>Description</th>
             <th>Category</th>
             <th>View</th>
+            <th>Edit</th>
+            <th>Delete</th>
         </tr>
         </thead>
         <tbody>
@@ -26,6 +28,8 @@
             <td th:text="${point.description}">slug</td>
             <td th:text="${point.category}">author</td>
             <td><a href="#" th:href="@{/admin/list/view/} + ${point.id}">View</a></td>
+            <td><a href="#" th:href="@{/admin/list/edit/} + ${point.id}">Edit</a></td>
+            <td><a href="#" th:href="@{/admin/list/delete/} + ${point.id}">Delete</a></td>
         </tr>
         </tbody>
     </table>
@@ -34,7 +38,7 @@
     <br/><br/>
 
     <p th:if="${points.size() == 0}">
-    <div class="alert alert-warning" role="alert">No Posts Found.</div>
+    <div class="alert alert-warning" role="alert">No points found.</div>
     </p>
 
 </div>

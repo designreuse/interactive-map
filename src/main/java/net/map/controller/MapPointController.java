@@ -4,6 +4,7 @@ import net.map.domain.MapPoint;
 import net.map.repository.MapPointRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +21,7 @@ public class MapPointController {
         this.mapPointRepository = mapPointRepository;
     }
 
-
+    @CrossOrigin
     @RequestMapping("/get")
     public Iterable<MapPoint> list() {
         return mapPointRepository.findAll();

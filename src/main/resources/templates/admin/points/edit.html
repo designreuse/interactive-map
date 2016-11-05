@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="layouts/main">
+<head>
+    <meta charset="utf-8"/>
+    <title>Create New Point</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <h2>Create New Point</h2>
+    <br/>
+
+    <form class="form-horizontal" th:object="${point}" th:action="@{/admin/list/save}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Name: </label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" th:field="*{name}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Category</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" th:field="*{category}" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Description</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" th:field="*{description}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Lat</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" th:field="*{lat}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Lng</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" th:field="*{lng}" />
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+
+</div>
+
+</body>
+</html>

@@ -25,6 +25,9 @@ public class MapPointService {
 
     public MapPoint save(MapPoint point) {
         return mapPointRepository.save(point);
+    }
 
+    public void delete(MapPoint point) {
+        mapPointRepository.delete(point);
     }
 }
