@@ -19,11 +19,25 @@ $(document).ready(function() {
             (document.getElementById("lng").value) = e.target.getLatLng().lng;
         });
     });
+    boryMap.on('dragend', function(e) {
+        if(typeof newMarker != 'undefined'){
+            boryMap.removeLayer(newMarker);
+        }
+        newMarker = new L.marker(e.latlng,{draggable:true});
+        newMarker.setIcon(icon);
+        boryMap.addLayer(newMarker);
+        (document.getElementById("lat").value) = e.latlng.lat;
+        (document.getElementById("lng").value) = e.latlng.lng;
+        newMarker.on('dragend', function(e){
+            (document.getElementById("lat").value) = e.target.getLatLng().lat;
+            (document.getElementById("lng").value) = e.target.getLatLng().lng;
+        });
+    });
     var icon = L.icon({
         iconUrl: '../../../images/marker24.png',
-        iconSize: [70, 70],
-        iconAnchor: [36, 48],
-        popupAnchor: [0, -25]
+        iconSize: [25, 41],
+        iconAnchor: [25, 41],
+        popupAnchor: [-12, -38]
     });
 //Edycja istniejacego
     if(document.getElementById("lat")){
@@ -56,9 +70,9 @@ function naMape(){
                 newMarker = new L.marker(latlng,{draggable:true});
                 var icon = L.icon({
                     iconUrl: '../../../images/marker24.png',
-                    iconSize: [70, 70],
-                    iconAnchor: [36, 48],
-                    popupAnchor: [0, -25]
+                    iconSize: [25, 41],
+                    iconAnchor: [25, 41],
+                    popupAnchor: [-12, -38]
                 });
                 newMarker.setIcon(icon);
                 boryMap.addLayer(newMarker);
@@ -72,9 +86,9 @@ function naMape(){
                 newMarker = new L.marker(latlng,{draggable:true});
                 var icon = L.icon({
                     iconUrl: '../../../images/marker24.png',
-                    iconSize: [70, 70],
-                    iconAnchor: [36, 48],
-                    popupAnchor: [0, -25]
+                    iconSize: [25, 41],
+                    iconAnchor: [25, 41],
+                    popupAnchor: [-12, -38]
                 });
                 newMarker.setIcon(icon);
                 boryMap.addLayer(newMarker);

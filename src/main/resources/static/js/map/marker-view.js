@@ -1,4 +1,4 @@
-$(document).ready(function() {
+
    function viewPoint(ob_lat, ob_lng) {
     layer = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
@@ -7,12 +7,12 @@ $(document).ready(function() {
     map = new L.Map('map', {center: latlng, zoom:10, zoomControl:true, layers: [layer], scrollWheelZoom : true});
        var icon = L.icon({
            iconUrl: '../../../images/marker24.png',
-           iconSize: [70, 70],
-           iconAnchor: [36, 48],
-           popupAnchor: [0, -25]
+           iconSize: [25, 41],
+           iconAnchor: [25, 41],
+           popupAnchor: [-12, -38]
        });
-       marker = new L.marker(e.latlng,{draggable:true});
+       marker = new L.marker(latlng,{draggable:false});
        marker.setIcon(icon);
        map.addLayer(marker);
    };
-});
+
