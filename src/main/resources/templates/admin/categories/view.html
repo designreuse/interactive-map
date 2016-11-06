@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="layouts/main">
+<head>
+    <title th:text="|View category - ${category.name}|">View category</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <ol class="breadcrumb">
+        <li><a href="/">Home</a></li>
+        <li><a href="/admin/categories">Categories</a></li>
+        <li class="active" th:text="${category.name}"></li>
+    </ol>
+
+    <article>
+        <header>
+            <h2 th:text="${category.name}">title</h2>
+        </header>
+
+        <section th:utext="${category.description}">
+        </section>
+        Cat: <span th:text="${category.icon}"> </span>
+        URL: <span th:text="${category.url}"> </span>
+
+        <hr/>
+    </article>
+</div>
+
+</body>
+</html>

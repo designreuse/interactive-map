@@ -3,7 +3,12 @@
       xmlns:th="http://www.thymeleaf.org"
       layout:decorator="layouts/main">
 <head>
-    <title th:text="|View Post - ${point.name}|">View Post</title>
+    <title th:text="|View point - ${point.name}|">View point</title>
+    <link rel="stylesheet" type="text/css" href="../../../css/leaflet.css" />
+    <script type='text/javascript' src='../../../js/leaflet.js'></script>
+    <script type='text/javascript' src='../../../js/jquery.min.js'></script>
+    <script type='text/javascript' src='../../../js/map/marker-view.js'></script>
+
 </head>
 <body>
 
@@ -22,10 +27,18 @@
 
         <section th:utext="${point.description}">
         </section>
-        Cat: <span th:text="${point.category}"> </span>
+        Cat: <span th:text="${point.category.name}"> </span>
+        URL: <span th:text="${point.category.url}"> </span>
+        Icon: <span th:text="${point.category.icon}"> </span>
         Position: <span th:text="${point.lat}"></span> x <span th:text="${point.lng}"> </span>
-
+        <div id="map" style="height:400px"></div>
         <hr/>
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            viewPoint([[${point.lat}]],[[${point.lng}]]);
+
+            /*]]>*/
+        </script>
     </article>
 </div>
 

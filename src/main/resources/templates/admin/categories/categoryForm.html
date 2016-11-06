@@ -4,16 +4,17 @@
       layout:decorator="layouts/main">
 <head>
     <meta charset="utf-8"/>
-    <title>Create New Point</title>
+    <title>Category</title>
+
 </head>
 <body>
 
 <div layout:fragment="content">
 
-    <h2>Create New Point</h2>
+    <h2>Create new category</h2>
     <br/>
 
-    <form class="form-horizontal" th:object="${point}" th:action="@{/admin/list/save}" method="post">
+    <form class="form-horizontal" th:object="${category}" th:action="@{/admin/categories/save}" method="post">
         <input type="hidden" th:field="*{id}" />
         <div class="form-group">
             <label class="col-sm-2 control-label">Name: </label>
@@ -21,29 +22,30 @@
                 <input type="text" class="form-control" th:field="*{name}" />
             </div>
         </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Category</label>
-            <div class="col-md-10">
-                <input type="text" class="form-control" th:field="*{category}" />
-            </div>
-        </div>
 
         <div class="form-group">
-            <label class="col-sm-2 control-label">Description</label>
+            <label class="col-sm-2 control-label">Description: </label>
             <div class="col-md-10">
                 <input type="text" class="form-control" th:field="*{description}" />
             </div>
         </div>
+
         <div class="form-group">
-            <label class="col-sm-2 control-label">Lat</label>
+            <label class="col-sm-2 control-label">Article URL: </label>
             <div class="col-md-10">
-                <input type="text" class="form-control" th:field="*{lat}" />
+                <input type="text" class="form-control" th:field="*{url}" id="url"/>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">Lng</label>
+            <label class="col-sm-2 control-label">Icon name: </label>
             <div class="col-md-10">
-                <input type="text" class="form-control" th:field="*{lng}" />
+                <input type="text" class="form-control" th:field="*{icon}" id="icon"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Image name: </label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" th:field="*{image}" id="image"/>
             </div>
         </div>
 
@@ -51,6 +53,5 @@
     </form>
 
 </div>
-
 </body>
 </html>

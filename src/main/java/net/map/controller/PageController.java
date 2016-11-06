@@ -1,7 +1,9 @@
 package net.map.controller;
 
+import net.map.domain.Category;
 import net.map.domain.MapPoint;
 import net.map.repository.MapPointRepository;
+import net.map.service.CategoryService;
 import net.map.service.MapPointService;
 import org.hibernate.mapping.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +22,11 @@ import javax.validation.Valid;
 @Controller
 public class PageController {
     private MapPointService mapPointService;
+    private CategoryService categoryService;
     @Autowired
-    public PageController(MapPointService service){
-        this.mapPointService = service;
+    public PageController(MapPointService mapPointService, CategoryService categoryService){
+        this.mapPointService = mapPointService;
+        this.categoryService = categoryService;
     }
 
 
@@ -53,6 +57,7 @@ public class PageController {
     @RequestMapping("/admin/list/edit/{id}")
     public String edit(@PathVariable(value="id") Long id, Model model){
         model.addAttribute("point", mapPointService.getById(id));
+        model.addAttribute("categories", categoryService.list());
         return "admin/points/pointForm";
     }
 
@@ -86,7 +91,62 @@ public class PageController {
         }
     }
 
+    // Categories
+    @RequestMapping("/admin/categories")
+    public String listCategories(Model model) {
+        model.addAttribute("categories", categoryService.list());
+        return "admin/categories/list";
+    }
 
+    @RequestMapping("/admin/categories/{id}")
+    public String listCategories(@PathVariable(value="id") Long id, Model model) {
+        model.addAttribute("points", mapPointService.getCategories(id));
+        return "admin/categories/pointsList";
+    }
+
+
+    @RequestMapping("/admin/categories/view/{id}")
+    public String viewCategory(@PathVariable(value="id") Long id, Model model){
+        model.addAttribute("category", categoryService.findOne(id));
+        return "admin/categories/view";
+    }
+
+    @RequestMapping("/admin/categories/edit/{id}")
+    public String editCategory(@PathVariable(value="id") Long id, Model model){
+        model.addAttribute("category", categoryService.findOne(id));
+        model.addAttribute("categories", categoryService.list());
+        return "admin/categories/categoryForm";
+    }
+
+    @RequestMapping("/admin/categories/delete/{id}")
+    public String deleteCategory(@PathVariable(value="id") Long id){
+        Category category = categoryService.findOne(id);
+        categoryService.delete(category);
+        return "redirect:/admin/categories";
+    }
+
+    @RequestMapping("admin/categories/create")
+    public String createCategory(Model model){
+        model.addAttribute("category", new Category());
+        return "admin/categories/categoryForm";
+    }
+
+    @RequestMapping(value="admin/categories/save", method= RequestMethod.POST)
+    public String saveCategory(@Valid Category category, BindingResult bindingResult, Model model){
+        if(bindingResult.hasErrors()){
+            model.addAttribute("category", categoryService.list());
+            return "admin/categories/categoryForm";
+        }else{
+            categoryService.save(category);
+            return "redirect:/admin/categories/view/" + category.getId();
+        }
+    }
+
+
+
+
+
+    // Trash below
     @RequestMapping("/testcluster")
     public String testcluster(Model model) {
         return "testcluster";

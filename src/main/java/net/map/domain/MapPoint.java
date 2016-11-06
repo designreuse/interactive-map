@@ -4,6 +4,7 @@ package net.map.domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class MapPoint {
@@ -12,22 +13,35 @@ public class MapPoint {
     private Long id;
     private String name;
     private String description;
-    private String category;
     private double lat;
     private double lng;
-
+    @ManyToOne
+    private Category category;
+    private String image;
+    private String url;
+    private String icon;
 
     @SuppressWarnings("unused")
-    public MapPoint()
-    {
+    public MapPoint() {
     }
 
-    public MapPoint(String name, String description, String category, double lat, double lng){
+    public MapPoint(String name, String description, Category category, double lat, double lng) {
         this.name = name;
         this.description = description;
         this.category = category;
         this.lat = lat;
         this.lng = lng;
+    }
+
+    public MapPoint(String name, String description, Category category, double lat, double lng, String image, String url, String icon) {
+        this.name = name;
+        this.description = description;
+        this.category = category;
+        this.lat = lat;
+        this.lng = lng;
+        this.image = image;
+        this.url = url;
+        this.icon = icon;
     }
 
     public Long getId() {
@@ -44,13 +58,6 @@ public class MapPoint {
 
     public void setName(String name) {
         this.name = name;
-    }
-    public String getCategory(){
-        return category;
-    }
-
-    public void setCategory(String category){
-        this.category = category;
     }
 
     public String getDescription() {
@@ -75,6 +82,38 @@ public class MapPoint {
 
     public void setLng(double lng) {
         this.lng = lng;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
 

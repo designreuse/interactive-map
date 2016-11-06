@@ -1,5 +1,6 @@
 package net.map.service;
 
+import net.map.domain.Category;
 import net.map.domain.MapPoint;
 import net.map.repository.MapPointRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,4 +31,7 @@ public class MapPointService {
     public void delete(MapPoint point) {
         mapPointRepository.delete(point);
     }
+
+    public Iterable<MapPoint> getCategories(long id){ return mapPointRepository.findAllByCategoryId(id);}
+    //public Iterable<Category> getByCategory(long id){ return mapPointRepository.findAllByCategoryId(id);}
 }
