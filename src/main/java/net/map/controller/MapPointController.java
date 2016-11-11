@@ -27,6 +27,7 @@ public class MapPointController {
         return mapPointRepository.findAll();
     }
 
+    @CrossOrigin
     @RequestMapping("/get/{id}")
     public MapPoint getById(@PathVariable(value = "id") long id){
         return mapPointRepository.findOne(id);
