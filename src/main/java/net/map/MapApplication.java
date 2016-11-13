@@ -1,5 +1,6 @@
 package net.map;
 
+import com.monitorjbl.json.JsonViewSupportFactoryBean;
 import net.map.domain.Category;
 import net.map.domain.MapPoint;
 import net.map.repository.CategoryRepository;
@@ -139,6 +140,10 @@ public class MapApplication {
 		registrationBean.setFilter(characterEncodingFilter);
 		return registrationBean;
 	}
+    @Bean
+    public JsonViewSupportFactoryBean views() {
+        return new JsonViewSupportFactoryBean();
+    }
 
 	public static void main(String[] args) {
 		SpringApplication.run(MapApplication.class, args);

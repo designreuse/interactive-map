@@ -1,10 +1,17 @@
 package net.map.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.monitorjbl.json.JsonResult;
+import com.monitorjbl.json.Match;
 import net.map.domain.Category;
 import net.map.domain.MapPoint;
-import net.map.repository.MapPointRepository;
 import net.map.service.CategoryService;
 import net.map.service.MapPointService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.monitorjbl.json.JsonView;
+import com.monitorjbl.json.JsonViewSerializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +26,9 @@ public class CategoryController {
    // MapPointRepository mapPointRepository;
     MapPointService mapPointService;
     CategoryService categoryService;
+
+
+    private JsonResult json = JsonResult.instance();
 
     @Autowired
     public CategoryController(MapPointService mapPointService, CategoryService categoryService){
@@ -41,7 +51,14 @@ public class CategoryController {
     // Get all map points for this category
     @CrossOrigin
     @RequestMapping("/categories/{id}")
-    public Iterable<MapPoint> categoryById(@PathVariable(value="id") long id) { return mapPointService.getCategories(id); }
+    public void /*Iterable<MapPoint>*/ categoryById(@PathVariable(value="id") long id) {
+        Iterable<MapPoint> list = mapPointService.getCategories(id);
+
+        json.use(JsonView.with(list)
+                .onClass(MapPoint.class, Match.match()
+                        .exclude("category").exclude("description").exclude("url").exclude("image").exclude("icon")));
+                        //                        .include("ignoredDirect")));
+    }
 
 
 
