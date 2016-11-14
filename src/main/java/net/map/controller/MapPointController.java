@@ -1,5 +1,8 @@
 package net.map.controller;
 
+import com.monitorjbl.json.JsonResult;
+import com.monitorjbl.json.JsonView;
+import com.monitorjbl.json.Match;
 import net.map.domain.MapPoint;
 import net.map.repository.MapPointRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MapPointController {
     MapPointRepository mapPointRepository;
+    private JsonResult json = JsonResult.instance();
+
 
     @Autowired
     public MapPointController(MapPointRepository mapPointRepository){
@@ -29,8 +34,11 @@ public class MapPointController {
 
     @CrossOrigin
     @RequestMapping("/get/{id}")
-    public MapPoint getById(@PathVariable(value = "id") long id){
-        return mapPointRepository.findOne(id);
+    public void getById(@PathVariable(value = "id") long id){
+        MapPoint point =  mapPointRepository.findOne(id);
+        json.use(JsonView.with(point)
+                .onClass(MapPoint.class, Match.match()
+                        .exclude("category")));
     }
 
 
