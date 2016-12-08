@@ -1,12 +1,13 @@
 package net.map.controller;
 
 import com.monitorjbl.json.JsonResult;
+import com.monitorjbl.json.JsonView;
 import com.monitorjbl.json.Match;
 import net.map.domain.Category;
 import net.map.domain.MapPoint;
 import net.map.service.CategoryService;
 import net.map.service.MapPointService;
-import com.monitorjbl.json.JsonView;
+import net.map.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,18 +18,19 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by pingwin on 25.10.16.
  */
 @RestController
-public class CategoryController {
+public class TypeController {
     MapPointService mapPointService;
     CategoryService categoryService;
+    TypeService typeService;
 
     private JsonResult json = JsonResult.instance();
 
     @Autowired
-    public CategoryController(MapPointService mapPointService, CategoryService categoryService){
+    public TypeController(MapPointService mapPointService, CategoryService categoryService){
         this.mapPointService = mapPointService;
         this.categoryService = categoryService;
     }
-
+/*
     @CrossOrigin
     @RequestMapping("/categories")
     public Iterable<Category> list() {
@@ -38,14 +40,14 @@ public class CategoryController {
     // Get all map points for this category
     @CrossOrigin
     @RequestMapping("/categories/{id}")
-    public void /*Iterable<MapPoint>*/ categoryById(@PathVariable(value="id") long id) {
+    public void *//*Iterable<MapPoint>*//* categoryById(@PathVariable(value="id") long id) {
         Iterable<MapPoint> list = mapPointService.getCategories(id);
 
         json.use(JsonView.with(list)
                 .onClass(MapPoint.class, Match.match()
-                        .exclude("category").exclude("description").exclude("url").exclude("image")));
-                        //.exclude("icon")));
-    }
+                        .exclude("category").exclude("description").exclude("url").exclude("image").exclude("icon")));
+                        //                        .include("ignoredDirect")));
+    }*/
 
 
 }

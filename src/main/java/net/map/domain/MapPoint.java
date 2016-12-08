@@ -23,6 +23,9 @@ public class MapPoint {
     private String url;
     private String icon;
 
+    @ManyToOne
+    private Type type;
+
     @SuppressWarnings("unused")
     public MapPoint() {
     }
@@ -31,6 +34,7 @@ public class MapPoint {
         this.name = name;
         this.description = description;
         this.category = category;
+        this.icon = category.getIcon();
         this.lat = lat;
         this.lng = lng;
     }
@@ -114,8 +118,15 @@ public class MapPoint {
         return icon;
     }
 
-    public void setIcon(String icon) {
-        this.icon = icon;
+    public void setIcon(String icon) { this.icon = icon; }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+        this.icon = type.getIcon(); // Rewrite category icon for type icon
     }
 
 

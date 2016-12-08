@@ -3,8 +3,10 @@ package net.map;
 import com.monitorjbl.json.JsonViewSupportFactoryBean;
 import net.map.domain.Category;
 import net.map.domain.MapPoint;
+import net.map.domain.Type;
 import net.map.repository.CategoryRepository;
 import net.map.repository.MapPointRepository;
+import net.map.repository.TypeRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,9 +18,10 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 public class MapApplication {
 
 	@Bean
-	CommandLineRunner runner(MapPointRepository mapPointRepository, CategoryRepository categoryRepository) {
+	CommandLineRunner runner(MapPointRepository mapPointRepository, CategoryRepository categoryRepository, TypeRepository typeRepository) {
 		return args -> {
-
+			Type type = new Type("Capel" , "icon12");
+			typeRepository.save(type);
 			//create categories
 			Category category = new Category("Restaurants", "Interesting", "icon");
 			Category category2 = new Category("POI", "Very interesting", "icon2");
@@ -41,7 +44,9 @@ public class MapApplication {
 			categoryRepository.save(category9);
 			categoryRepository.save(category10);
 			MapPoint point1 = new MapPoint("Point 1", "Some point", category, 56.1, 17);
+			point1.setType(type);
 			MapPoint point2 = new MapPoint("Point 2", "Some point", category, 56.2, 17);
+			point2.setType(type);
 			MapPoint point3 = new MapPoint("Point 3", "Some point", category, 56.4, 17);
 			MapPoint point4 = new MapPoint("Point 4", "Some point", category, 56.3, 17);
 			MapPoint point5 = new MapPoint("Point 5", "Some point", category2, 56.33, 17);
