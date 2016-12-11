@@ -4,16 +4,15 @@ package net.map.domain;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonView;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+
 @Entity
 public class MapPoint {
     @Id
     @GeneratedValue
     private Long id;
     private String name;
+    @Column(name="description", columnDefinition="TEXT")
     private String description;
     private double lat;
     private double lng;
